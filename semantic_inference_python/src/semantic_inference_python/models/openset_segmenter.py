@@ -229,6 +229,7 @@ class OpensetSegmenterConfig(Config):
     pub_detections: bool = False
     dense_representation_radius_m: float = 8
     min_depth: float = 0.05
+    max_valid_depth_m: float = 100.0
 
 
 class OpensetSegmenter(nn.Module):
@@ -327,11 +328,12 @@ class OpensetSegmenter(nn.Module):
         start_time = time.time()
         for i, label in enumerate(labels):
             if use_depth:
-                mean_depth = depth[masks[i].cpu().numpy()].mean()
-                if not (
-                    mean_depth > self.config.min_depth
-                    and mean_depth < self.config.dense_representation_radius_m
-                ):
+                mask_depths = depth[masks[i].cpu().numpy()]
+                valid_depths = mask_depths[(mask_depths > self.config.min_depth) & (mask_depths < self.config.max_valid_depth_m)]
+                if len(valid_depths) == 0:
+                    continue
+                mean_depth = valid_depths.mean()
+                if not (mean_depth > self.config.min_depth and mean_depth < self.config.dense_representation_radius_m):
                     continue
             if label.item() in self.config.object_labels:
                 object_masks.append(masks[i])

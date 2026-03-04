@@ -5,6 +5,7 @@ segmentation:
   iou: 0.85
   output_size: 640
   verbose: false
+
 refinement:
   dilate_masks: true
 clip_model:
@@ -13,7 +14,7 @@ clip_model:
   model_path: ""
   tokenizer_name: ViT-B-32
   pretrained: laion2b_s34b_b79k
-# controls pixel-aligned features
+
 use_dense: false
 dense_ratio: 0.9
 max_batch: 10
@@ -26,6 +27,12 @@ box_embeddings_weight: 0.0
 mask_embeddings_weight: 0.1
 cuda: True
 verbose: False
-dense_representation_radius_m: 7.0
+
+# Radius in meters around the robot within which objects are included in open-set segmentation
+dense_representation_radius_m: 16.0
+# Minimum depth (meters) for a pixel to be considered valid; closer points are discarded
 min_depth: 0.05
+# Maximum depth (meters) for a pixel to be considered valid; deeper points (e.g. sky/background) are treated as invalid
+max_valid_depth_m: 100.0
+# Publish annotated detection images for visualization/debugging
 pub_detections: True

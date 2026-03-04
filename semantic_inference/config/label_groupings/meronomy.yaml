@@ -1,0 +1,24 @@
+---
+name: meronomy
+distinct: true
+offset: -1
+groups:
+  - {name: canopy, labels: [1]}
+  - {name: wall, labels: [2]}
+  - {name: trunk, labels: [3]}
+  - {name: ashcan, labels: [4]}
+  - {name: handcart, labels: [5]}
+  - {name: door, labels: [6]}
+  - {name: window, labels: [7]}
+  - {name: umbrella, labels: [8]}
+  - {name: bin, labels: [9]}
+  - {name: box, labels: [10]}
+  - {name: building, labels: [11]}
+  - {name: roof, labels: [12]}
+  - {name: crown, labels: [13]}
+  - {name: tree, labels: [14]}
+  - {name: parapet, labels: [15]}
+  - {name: floor, labels: [16]}
+
+specified_colors:
+  - {name: ground, source: raw, color: [0.75, 0.75, 0.71]}
